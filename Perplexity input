@@ -1,0 +1,145 @@
+Devi realizzare un piccolo “progetto completo” di data science su un problema di computer vision (classificazione di rifiuti), usando Python (in VS Code) e, almeno in parte, PostgreSQL.[1]
+
+***
+
+## Cosa devi consegnare
+
+Dal documento di assignment emergono 3 prodotti obbligatori.[1]
+
+- **Repository GitHub**  
+  - Creare una repo del gruppo.  
+  - Tutti i membri devono fare **commit personali** (storico che mostra il contributo di ciascuno).  
+  - Qui metterai: codice Python, script SQL, eventuali notebook, README.
+
+- **Relazione scritta (4–8 pagine, in inglese)**  
+  Struttura imposta:[1]
+  - *Introduction to the problem*: contesto del riciclo, perché classificare i rifiuti, cosa fa il dataset.  
+  - *State of the art*: brevi riferimenti ad altri lavori/metodi (classificazione immagini, CNN, modelli pre-addestrati, ecc.; basta un livello divulgativo).  
+  - *Proposed approach*: descrizione chiara della pipeline:
+    - come hai esplorato il dataset;
+    - come l’hai memorizzato in database/data warehouse (schema, tabelle, chiavi, collegamento ai file immagine – rimando alla parte di corso su database e data warehouse: schema star, normalizzazione/denormalizzazione, ecc.).[2]
+    - quali classifier hai usato e perché (logistic regression, SVM, random forest, CNN, ecc.; collegamento alla teoria su modelli lineari, alberi, random forest, reti neurali).[2]
+  - *Results*: metriche (accuracy, precision, recall, F1, confusion matrix, ROC/AUC se sensato) e grafici/tabelle, confrontando i vari modelli (richiamo alle lezioni su metriche di classificazione e validazione).[2]
+  - Va spedita almeno **3 giorni prima dell’esame**.[1]
+
+- **Slide per presentazione (5–10 minuti)**  
+  - Problema e dataset.  
+  - Architettura dati (parte DB/DW).  
+  - Modelli provati e risultati principali.  
+  - Due slide finali di “lesson learned” e possibili estensioni (es. object detection YOLO come extra).[1]
+
+***
+
+## Cosa devi fare sul dataset (parte pratica)
+
+Il dataset di rifiuti contiene immagini di diverse tipologie di garbage; il link è nel testo dell’assegno.[1]
+
+1. **Exploratory Data Analysis sul dataset di immagini**[1]
+   Collegamenti teorici:
+   - uso di **Python + NumPy/Pandas/Matplotlib** per esplorare i dati, come visto a lezione (lettura dati, statistica descrittiva, distribuzione delle classi).[2]
+   Cosa fare praticamente:
+   - scaricare e decompressare l’archivio;
+   - capire com’è strutturato (cartelle per classe? file CSV con etichette?);
+   - calcolare:
+     - numero di immagini per classe;
+     - eventuale sbilanciamento (class imbalance → richiamo a problemi di accuracy in presenza di classi rare).[2]
+   - mostrare alcune immagini di esempio per classe (plot con `matplotlib`).
+
+2. **Memorizzazione in Database / Data Warehouse (PostgreSQL)**[1]
+   Collegamenti teorici:
+   - concetto di **database** e **data warehouse**: separazione tra dati operazionali e dati analitici.[2]
+   - modello **relazionale**, concetti di tabelle, chiavi primarie/esterne (SQL).[2]
+   - schema star / snowflake e dimensioni/misure (puoi interpretare: dimensione = “tipo di rifiuto”, “fonte del dato”, “data di acquisizione”, ecc.).[2]
+   Cosa fare praticamente:
+   - progettare uno schema minimo in PostgreSQL, ad esempio:
+     - tabella `image` con id, path file, larghezza, altezza, ecc.;  
+     - tabella `class` con id, nome classe (plastic, glass, paper, …);  
+     - eventuale tabella `dataset_split` o attributo che indica train/validation/test.  
+   - creare le tabelle con script SQL (DDL) e caricare i metadati (non serve salvare il contenuto binario dell’immagine, basta il percorso).  
+   - usare qualche **query SQL** per:
+     - contare immagini per classe;
+     - verificare sbilanciamenti;
+     - eventualmente creare viste o tabelle “analitiche” (parte data warehouse).
+
+3. **Confrontare più classifier per la classificazione dei rifiuti**[1]
+   Collegamenti teorici:
+   - **data preprocessing**: normalizzazione/standardizzazione, train/validation/test split, K-fold cross-validation, gestione class imbalance (class weights).[2]
+   - **modelli supervisionati** di classificazione:
+     - modelli lineari (logistic regression, perceptron);[2]
+     - alberi decisionali e random forest;[2]
+     - reti neurali / CNN (anche solo usando librerie preesistenti).[2]
+   - metriche: confusion matrix, accuracy, precision, recall, F1, ROC/AUC; problemi con dataset sbilanciati.[2]
+   Cosa fare praticamente (pipeline tipica):
+   - definire un modo per trasformare l’immagine in feature:
+     - o approccio “classico”: ridimensionare e flatten, oppure estrarre feature da un modello pre-addestrato (transfer learning);
+     - o costruire direttamente una piccola CNN.  
+   - creare **train/validation/test** (stratificato sulle classi, come visto per model selection).[2]
+   - addestrare almeno **2–3 classifier diversi** (ad es. logistic regression vs random forest vs CNN) e confrontarli:
+     - stesso train/test split;
+     - usare cross-validation per scegliere iperparametri (richiamo a Grid Search/Random Search).[2]
+   - valutare ogni modello con le metriche viste a lezione:
+     - confusion matrix;
+     - accuracy;
+     - precision, recall, F1 (macro/micro se le classi sono tante);[2]
+     - eventualmente ROC curve e AUC se hai una classe “positiva” ben definita.[2]
+
+4. **Creare un tuo testing dataset con foto scattate da te**[1]
+   Collegamenti teorici:
+   - concetto di **generalizzazione** vs overfitting: test su dati “out of distribution”.[2]
+   - importanza di valutare il modello su dati che non ha mai visto.[2]
+   Cosa fare praticamente:
+   - scattare un piccolo set di immagini di rifiuti reali, etichettandoli manualmente (plastic, paper, glass, …) coerentemente con le classi del dataset.  
+   - preprocessarle esattamente come quelle di training (resize, normalizzazione, ecc.).  
+   - far predire il modello e misurare performance (anche solo accuracy + qualche esempio di errore).  
+   - commentare le differenze rispetto al test originale (magari il modello va peggio per differenze di illuminazione, sfondo, ecc.).
+
+5. **Extra (opzionale): object detection con YOLO**[1]
+   - È dichiarato “extra” e “non visto a lezione”, quindi non obbligatorio.[1]
+   - Se lo fai, si tratta di:
+     - usare un modello di **object detection** (es. YOLO) per individuare **più oggetti nella stessa immagine**;  
+     - poi applicare il tuo classifier di tipo a ogni bounding box riconosciuto.  
+   - Concetto teorico: passare dalla semplice **classificazione** (una label per immagine) alla **detection** (localizzazione + label multiple).
+
+***
+
+## Come collegare ogni parte alla teoria del corso
+
+Puoi strutturare il progetto evidenziando sempre a quale blocco teorico stai attingendo.[2]
+
+- **Parte Python base + EDA**  
+  - Appoggiati a: enumerate/zip, librerie **NumPy, Pandas, Matplotlib** (lezioni iniziali).[2]
+  - Possibili rimandi: statistiche descrittive, distribuzioni, grafici.
+
+- **Parte Database / Data Warehouse**  
+  - Rimandi:
+    - differenza database operativo vs **data warehouse**;  
+    - concetti di schema star/snowflake, fatto/dimensioni, granularità;[2]
+    - tabelle relazionali, chiavi surrogate, normalizzazione vs denormalizzazione.[2]
+  - Puoi giustificare il tuo schema PostgreSQL come un minidata mart per immagini di rifiuti.
+
+- **Parte Machine Learning supervisionato**  
+  - Richiama:
+    - modelli lineari (logistic regression) e loro interpretabilità via coefficienti;[2]
+    - decision tree, random forest, metodi ensemble;[2]
+    - reti neurali / perceptron / MLP se usi deep learning.[2]
+  - Usa la parte di **model selection, cross-validation, overfitting, regularization**, spiegando come scegli iperparametri.[2]
+
+- **Parte valutazione prestazioni**  
+  - Usa le **metriche di classificazione** (accuracy, precision, recall, F1, ROC, AUC) e discuti problemi di class imbalance come nella teoria sugli esempi di malattia rara.[2]
+  - Colloca qui anche la divisione train/validation/test e la K-fold cross-validation.[2]
+
+- **Parte “nuovo dataset di test”**  
+  - Puoi collegarla ai concetti di **sampling, bias, generalizzazione** (errori di campionamento, differenze di distribuzione tra training e real world).[2]
+
+***
+
+## Se vuoi, prossimo passo
+
+Nel prossimo messaggio si può entrare ancora più nel pratico, ad esempio:
+
+- disegnare uno schema PostgreSQL specifico per questo dataset (tabelle e chiavi) collegandolo alla teoria DW;  
+- proporre una possibile pipeline in codice (struttura delle cartelle, moduli Python, ordine delle funzioni);  
+- scegliere insieme 2–3 classifier concreti da confrontare, motivandoli con gli argomenti del corso.
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/13947743/a63a190d-fb00-4ac3-822d-3828cacc2453/Assignment.docx)
+[2](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/13947743/fe0caab2-fb60-4475-823c-caf4cd2cdc68/Data-science-and-management.docx)
