@@ -16,12 +16,23 @@ Dobbiamo creare uno split nostro corretto e riproducibile
 Mettiamo utte le immagini insieme e poi le suddividiamo in train (70%), val (15%) e test (15%).
 The split was verified to preserve class proportions.
 
-      label	cardboard	glass	metal	paper	plastic	trash
-split						
-test	60	76	62	89	73	20
-train	282	350	287	416	337	96
-val	  61	75	61	89	72	21
+### Numero di immagini per split
 
+| Split | Numero immagini |
+|------|-----------------|
+| Train | 1768 |
+| Validation | 379 |
+| Test | 380 |
+
+### Distribuzione classi per split
+
+| Split | Cardboard | Glass | Metal | Paper | Plastic | Trash |
+|------|-----------|-------|-------|-------|---------|-------|
+| Train | 282 | 350 | 287 | 416 | 337 | 96 |
+| Validation | 61 | 75 | 61 | 89 | 72 | 21 |
+| Test | 60 | 76 | 62 | 89 | 73 | 20 |
+
+Lo split risulta bilanciato e coerente tra i diversi sottoinsiemi senza duplicazioni.
 
 - Il problema è un **supervised learning multi-classe**:
   - ogni immagine ha una classe associata (es. cardboard, glass, plastic, ecc.).
