@@ -1,0 +1,35 @@
+# =========================
+# Data (do not track datasets)
+# =========================
+data/raw/**
+data/processed/**
+data/external/**
+
+# Keep README files inside data folders
+!data/**/README.md
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Python cache
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+
+# =========================
+# Virtual environments
+# =========================
+venv/
+.env/
+
+# =========================
+# OS / Editor files
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
