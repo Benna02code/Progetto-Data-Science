@@ -10,14 +10,18 @@ Non è un documento formale e non è destinato alla consegna finale.
 
 ## Dataset structure
 
-- Il dataset utilizzato è **già suddiviso** in:
-  - training set
-  - validation set
-  - test set
+- Il dataset utilizzato è suddiviso in modo fittizio tra train val e test. Di fatto ci sono le stesse immagini copiate e incollate nelle tre stratificazioni.
+Dobbiamo creare uno split nostro corretto e riproducibile
 
-- La suddivisione originale viene **mantenuta**.
-  - Questo garantisce un confronto corretto e fair tra i modelli.
-  - Evitiamo di introdurre bias o leakage creando nuovi split arbitrari.
+Mettiamo utte le immagini insieme e poi le suddividiamo in train (70%), val (15%) e test (15%).
+The split was verified to preserve class proportions.
+
+      label	cardboard	glass	metal	paper	plastic	trash
+split						
+test	60	76	62	89	73	20
+train	282	350	287	416	337	96
+val	  61	75	61	89	72	21
+
 
 - Il problema è un **supervised learning multi-classe**:
   - ogni immagine ha una classe associata (es. cardboard, glass, plastic, ecc.).
