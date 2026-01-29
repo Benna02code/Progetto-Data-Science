@@ -98,6 +98,7 @@ Scopo:
 ## Database design (draft)
 
 Il database PostgreSQL viene usato per memorizzare **solo i metadati**, non le immagini.
+Tutti i percorsi salvati nel DB sono relativi alla root del repository.
 
 ### Metadati pianificati
 
