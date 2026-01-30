@@ -6,6 +6,7 @@ del flusso mentale seguito e dei concetti importanti da ricordare (anche in vist
 
 Non è un documento formale e non è destinato alla consegna finale.
 
+Per creare la struttura date database su ogni computer è sufficiente scaricare la repo e runnare schema.sql per la struttura e 01_populate_db.ipynb per il popolamento già diviso in train val e test.
 ---
 
 ## Dataset structure
