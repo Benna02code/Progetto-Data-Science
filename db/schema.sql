@@ -17,4 +17,27 @@ CREATE TABLE IF NOT EXISTS images (
 );
 
 
-SELECT COUNT(*) FROM images;
+SELECT * FROM images;
+
+SELECT width, height, channels, COUNT(*) AS n
+FROM images
+GROUP BY width, height, channels
+ORDER BY n DESC;
+
+SELECT COUNT(*) AS missing_whc
+FROM images
+WHERE width IS NULL OR height IS NULL OR channels IS NULL;
+
+
+-- Check distribution of splits per label
+SELECT split, label, COUNT(*) AS n
+FROM images
+GROUP BY split, label
+ORDER BY split, label;
+
+-- check splits distribution
+SELECT split, COUNT(*) AS n
+FROM images
+GROUP BY split
+ORDER BY split;
+
