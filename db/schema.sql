@@ -1,22 +1,20 @@
 -- db/schema.sql
--- Schema per classificazione rifiuti: metadati immagini (niente immagini nel DB)
 
 CREATE TABLE IF NOT EXISTS images (
-  image_id   BIGSERIAL PRIMARY KEY,
-  filepath   TEXT NOT NULL,
-  label      TEXT NOT NULL,
-  split      TEXT NOT NULL CHECK (split IN ('train','val','test','external')),
-  source     TEXT NOT NULL CHECK (source IN ('raw','processed','external')),
-  file_hash  TEXT,                       -- utile per dedup e controlli
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    image_id        BIGSERIAL PRIMARY KEY,
+    filepath        TEXT NOT NULL UNIQUE,   -- es: data/raw/raw_flat/cardboard/cardboard1.jpg
 
-  CONSTRAINT uq_images_filepath UNIQUE (filepath)
+    label           TEXT NOT NULL,          -- cardboard, glass, ...
+    split           TEXT NOT NULL CHECK (split IN ('train','val','test')),
+    source          TEXT NOT NULL DEFAULT 'raw_flat' CHECK (source IN ('raw_flat','external','processed')),
+
+    width           INTEGER, -- opzionali (li possiamo riempire dopo)
+    height          INTEGER,
+    channels        INTEGER,
+    file_hash       TEXT,
+
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Indici utili per query frequenti
-CREATE INDEX IF NOT EXISTS idx_images_split  ON images(split);
-CREATE INDEX IF NOT EXISTS idx_images_label  ON images(label);
-CREATE INDEX IF NOT EXISTS idx_images_source ON images(source);
-CREATE INDEX IF NOT EXISTS idx_images_hash   ON images(file_hash);
 
 SELECT COUNT(*) FROM images;
