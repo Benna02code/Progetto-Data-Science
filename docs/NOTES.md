@@ -1,5 +1,9 @@
 # Project Notes
 
+## GUIDELINE NOTES (HOW TO USE IT)
+
+
+
 Questo file contiene appunti e riflessioni sulle scelte fatte durante il progetto.  
 Funziona come un **taccuino di progetto** per tenere traccia delle decisioni metodologiche,
 del flusso mentale seguito e dei concetti importanti da ricordare (anche in vista dell’orale).
@@ -8,6 +12,16 @@ Non è un documento formale e non è destinato alla consegna finale.
 
 Per creare la struttura date database su ogni computer è sufficiente scaricare la repo e runnare schema.sql per la struttura e 01_populate_db.ipynb per il popolamento già diviso in train val e test.
 ---
+
+
+## GUIDELINE NOTES (HOW TO USE IT)
+Per utilizzare git al meglio seguire gli step:
+1. Nel terminale dentro la repo usare comando: git pull (per scaricare eventuali aggiornamenti)
+2. git status (controllo)
+3. Una volta effettuate modifiche consolidate fare commit con messaggio esautivo e push
+
+
+Per creare la struttura date database su ogni computer è sufficiente scaricare la repo e runnare schema.sql per la struttura e 01_populate_db.ipynb per il popolamento già diviso in train val e test.
 
 ## Dataset structure
 
