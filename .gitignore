@@ -1,17 +1,14 @@
 # =========================
-# Data (do not track datasets)
+# Virtual environments
 # =========================
-data/raw/**
-data/processed/**
-data/external/**
-
-# Keep README files inside data folders
-!data/**/README.md
+venv/
+.venv/
 
 # =========================
-# Jupyter Notebook
+# Environment variables (SECRETS)
 # =========================
-.ipynb_checkpoints/
+.env
+.env.*
 
 # =========================
 # Python cache
@@ -21,14 +18,8 @@ __pycache__/
 *.pyo
 
 # =========================
-# Virtual environments
+# Jupyter
 # =========================
-venv/
-.env/
-.env
-.env.*
-.venv/
-__pycache__/
 .ipynb_checkpoints/
 
 # =========================
