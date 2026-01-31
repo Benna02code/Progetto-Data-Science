@@ -86,7 +86,7 @@ Questa separazione migliora:
 
 ---
 
-## Preprocessing delle immagini
+## Preprocessing delle immagini (on the fly, senza salvarle)
 
 Una volta selezionate le immagini corrette in base allo split, vengono applicate alcune trasformazioni.
 
