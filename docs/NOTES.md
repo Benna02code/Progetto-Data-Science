@@ -94,8 +94,7 @@ Queste operazioni **NON cambiano l’etichetta** dell’immagine, ma influenzano
 la qualità del training del modello.
 
 ### Resize
-- Tutte le immagini vengono ridimensionate a una dimensione standard
-  (es. 128×128 o 224×224).
+- Tutte le immagini vengono ridimensionate a una dimensione standard (384, 512).
 - Serve perché i modelli (soprattutto le CNN) richiedono input di dimensione fissa.
 
 ### Normalizzazione dei pixel
@@ -108,10 +107,10 @@ La **data augmentation** consiste nell’applicare trasformazioni casuali alle i
 per creare nuove versioni “simili” delle immagini originali.
 
 Esempi:
-- rotazioni leggere
-- flip orizzontali
-- piccoli zoom
-- variazioni di luminosità
+- rotazioni leggere (usato)
+- flip orizzontali (usato)
+- piccoli zoom (usato)
+- variazioni di luminosità (no)
 
 Scopo:
 - aumentare la varietà dei dati di training
@@ -124,7 +123,16 @@ Scopo:
   per non falsare la valutazione delle prestazioni.
 
 ---
+## Pipeline immagini per modello
 
+1. **Origine dei dati**, salvate nel filesystem (data/raw_flat), mentre db contiene solo metadati.
+2. Il **codice interroga db per costruire tre df**(df_train, df_val, df_test). Ogni riga rappresenta una coppia filepath e label (classe)
+3. **Creazione dei dataset keras** (tf.data) del tipo (path_immagine, label_id) senza caricare le immagini in memoria
+4. **Caricamento e preprocessing on the fly**. Effettua lettura dal disco (con path) decodifica, resize, normalizzazione ed eventuale data augmentation (solo nel training)
+5. Le **immagini vengono raggruppate in batch** e la **pipeline** per il modello è ottimizzata con AUTOTUNE
+6. **Input al modello come immagini** e label ma solo come confronto e calcolo di loss e aggiornamento pesi del training (tra un batch e l'altro)
+
+---
 ## Database design (draft)
 
 Il database PostgreSQL viene usato per memorizzare **solo i metadati**, non le immagini.
@@ -154,4 +162,5 @@ Se dovessimo riassumere il progetto a voce:
 - Il problema è una classificazione multi-classe di oggetti di rifiuto.
 - I dati sono gestiti tramite un database PostgreSQL che contiene solo metadati.
 - Le immagini sono caricate dal filesystem sulla base delle informazioni presenti nel database.
+- Le immagini sono state processate standardizzando le dimensioni e il range dei pixel in [0,1] e effettuando una augmentatione shuffle solo sul training per aumentare variabilità ed evitare pattern. è stato passata immagine e indice della classe di appartenenza per permettere al modello di stimare la loss.
 - Sono stati confrontati modelli di complessità crescente, fino a modelli deep learning.
