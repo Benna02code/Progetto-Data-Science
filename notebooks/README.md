@@ -4,12 +4,11 @@ It populates the Database already structured with the data taken from images and
 We will have an ID, path(relative), label (es: plastic), split (es:train), width, height, channels, file_hash and time of creation.
 
 - **02_dataset_loader_from_db.ipynb**  
-It loads the information from the DB reading image_id, filepath, label, split, source, width, height, channels. Then he create 3 different database based on the split saved in DB. Finally it defines the complete path necessary to take the image for the following model training.
+It shows how we work with images and data showing the pipeline used also in future models. It loads the information from the DB reading image_id, filepath, label, split, source, width, height, channels. Then he create 3 different database based on the split saved in DB. Finally it defines the complete path necessary to take the image for the model training.
 
 - **03_eda_images.ipynb**  
   Performs exploratory data analysis on the image dataset, including class distributions, image properties,
   and basic pixel-level statistics.
 
 - **04_baseline_logreg.ipynb**  
-  Implements a Logistic Regression baseline using flattened image pixels, evaluates performance on
-  validation and test sets, and analyzes results through classification reports and confusion matrices.
+  Implements a Logistic Regression baseline using flattened image pixels, evaluates performance on validation and test sets, and analyzes results through classification reports and confusion matrices.
