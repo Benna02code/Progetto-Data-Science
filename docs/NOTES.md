@@ -125,12 +125,12 @@ Scopo:
 ---
 ## Pipeline immagini per modello
 
-1. **Origine dei dati**, salvate nel filesystem (data/raw_flat), mentre db contiene solo metadati.
-2. Il **codice interroga db per costruire tre df**(df_train, df_val, df_test). Ogni riga rappresenta una coppia filepath e label (classe)
-3. **Creazione dei dataset keras** (tf.data) del tipo (path_immagine, label_id) senza caricare le immagini in memoria
-4. **Caricamento e preprocessing on the fly**. Effettua lettura dal disco (con path) decodifica, resize, normalizzazione ed eventuale data augmentation (solo nel training)
-5. Le **immagini vengono raggruppate in batch** e la **pipeline** per il modello è ottimizzata con AUTOTUNE
-6. **Input al modello come immagini** e label ma solo come confronto e calcolo di loss e aggiornamento pesi del training (tra un batch e l'altro)
+1. **Origine dei dati**: immagini salvate nel filesystem (data/raw_flat), mentre db contiene solo metadati (es. filepath, label, split).
+2. **Query DB**: il codice interroga il DB per costruire tre df (df_train, df_val, df_test). Ogni riga rappresenta una coppia (filepath e label).
+3. **Creazione dataset Keras**: dai dataframe si costruiscono tf.data.dataset che producono coppie del tipo tipo (path_immagine, label_id) senza caricare le immagini in memoria.
+4. **Caricamento e preprocessing on the fly**: durante map legge il file dal disco, decodifca, resize, normalizza ed infine data augmentation solo su train.
+4. **Batching e performance**: il dataset viene diviso in batch e ottimizzato con AUTOTUNE
+5. **Training**: il modello riceve solo immagini come input. Le label vengono usate solo per calcolare la loss confrontando y_true con y_pred e aggiornare i pesi a ogni batch
 
 ---
 ## Database design (draft)

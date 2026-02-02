@@ -40,8 +40,7 @@ Raw image data will be stored locally and not tracked by GitHub.
 ### 3.1 Data Organization
 
 The dataset will be organized as follows:
-- `data/raw/`: original images (unchanged)
-- `data/processed/`: preprocessed images ready for training
+- `data/raw_flat/`: original images (unchanged)
 - `data/external/`: images collected by the authors
 
 ### 3.2 Database / Data Warehouse
