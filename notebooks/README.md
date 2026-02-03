@@ -15,3 +15,6 @@ It shows how we work with images and data showing the pipeline used also in futu
 
 - **05_CNN_baseline.ipynb**  
   Trains and evaluates a baseline Convolutional Neural Network using a tf.data pipeline with on-the-fly preprocessing. The model clearly outperforms the logistic regression baseline and provides insight into class-specific confusions via confusion matrices and classification reports.
+
+- **06_CNN_transfer.ipynb**  
+  Trains and evaluates a Convolutional Neural Network using pretrained CNN on ImageNet. The pipeline involves an on-the-fly preprocessing, adapted to MobileNetV2, an head-only model training phase and finally a finetuning phase to slightly adapt the backbone. The model clearly outperforms the CNN baseline and provides great result with almost all the classes except trash.

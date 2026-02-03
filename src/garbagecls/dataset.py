@@ -30,7 +30,10 @@ def get_augmentation():
         keras.layers.RandomFlip("horizontal"),
         keras.layers.RandomRotation(0.05),
         keras.layers.RandomZoom(0.1),
+        keras.layers.RandomTranslation(0.05, 0.05),
+        keras.layers.RandomContrast(0.1),
     ], name="data_augmentation")
+
 
 # Crea il dataset tf.data.Dataset per training/validation
 def make_dataset(df_split, training, img_size, batch_size, seed, augment=False):

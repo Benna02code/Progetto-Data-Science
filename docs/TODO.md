@@ -20,3 +20,6 @@
 - [ ] Draft report structure
 - [ ] Insert results and plots
 - [ ] Prepare slides
+
+
+Provare più epoche per alcuni modelli !!! Per esempio il CNN baseline sembra avere ancora margine di miglioramento.
