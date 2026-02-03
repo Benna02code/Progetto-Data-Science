@@ -12,3 +12,6 @@ It shows how we work with images and data showing the pipeline used also in futu
 
 - **04_baseline_logreg.ipynb**  
   Implements a Logistic Regression baseline using flattened image pixels, evaluates performance on validation and test sets, and analyzes results through classification reports and confusion matrices.
+
+- **05_CNN_baseline.ipynb**  
+  Trains and evaluates a baseline Convolutional Neural Network using a tf.data pipeline with on-the-fly preprocessing. The model clearly outperforms the logistic regression baseline and provides insight into class-specific confusions via confusion matrices and classification reports.

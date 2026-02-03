@@ -86,4 +86,5 @@ def split_dfs(df: pd.DataFrame):
     df_train = df[df["split"] == "train"].reset_index(drop=True)
     df_val   = df[df["split"] == "val"].reset_index(drop=True)
     df_test  = df[df["split"] == "test"].reset_index(drop=True)
+    # quando avremo df_test_our, aggiungere qui la logica per gestirlo
     return df_train, df_val, df_test
