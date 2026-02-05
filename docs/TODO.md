@@ -21,5 +21,5 @@
 - [ ] Insert results and plots
 - [ ] Prepare slides
 
-
-Provare più epoche per alcuni modelli !!! Per esempio il CNN baseline sembra avere ancora margine di miglioramento.
+REVISIONE DI TUTTI I NOTEBOOK E PULIZIA
+EVENTUALE DECISION TREE
