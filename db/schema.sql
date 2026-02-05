@@ -41,3 +41,18 @@ FROM images
 GROUP BY split
 ORDER BY split;
 
+SELECT source, label, COUNT(*) AS n
+FROM images
+WHERE source = 'external'
+GROUP BY source, label
+ORDER BY label;
+
+SELECT split, label, COUNT(*) AS n
+FROM images
+WHERE source = 'raw_flat'
+  AND split IN ('train','val','test')
+GROUP BY split, label
+ORDER BY split, label;
+
+
+
