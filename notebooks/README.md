@@ -18,3 +18,6 @@ It shows how we work with images and data showing the pipeline used also in futu
 
 - **06_CNN_transfer.ipynb**  
   Trains and evaluates a Convolutional Neural Network using pretrained CNN on ImageNet. The pipeline involves an on-the-fly preprocessing, adapted to MobileNetV2, an head-only model training phase and finally a finetuning phase to slightly adapt the backbone. The model clearly outperforms the CNN baseline and provides great result with almost all the classes except trash.
+
+- **07_model_evaluation.ipynb**  
+  It evaluate the results loading a choosen model from the trained. It perform the confusion matrix analisis and permits to visualize the samples to better undertand what went well and what went wrong.
