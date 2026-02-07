@@ -89,16 +89,7 @@ A baseline classifier will be implemented using a **Logistic Regression** model.
 - Features will be normalized.
 - The model will provide a simple and interpretable reference point.
 
-### 5.2 Tree-Based Model
-
-A **Decision Tree** (or optionally a Random Forest) classifier will be implemented.
-
-This model allows:
-- learning non-linear decision boundaries
-- comparison with the baseline approach
-- discussion of interpretability versus performance
-
-### 5.3 Deep Learning Model
+### 5.2 Deep Learning Model
 
 A **Convolutional Neural Network (CNN)** will be implemented for image classification.
 
