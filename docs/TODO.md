@@ -20,6 +20,3 @@
 - [ ] Draft report structure
 - [ ] Insert results and plots
 - [ ] Prepare slides
-
-REVISIONE DI TUTTI I NOTEBOOK E PULIZIA
-EVENTUALE DECISION TREE
