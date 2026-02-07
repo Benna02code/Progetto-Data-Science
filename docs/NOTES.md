@@ -153,8 +153,6 @@ Le immagini **non vengono memorizzate nel database**:
 
 ---
 
-## Oral exam – riassunto mentale
-
 Se dovessimo riassumere il progetto a voce:
 
 - Abbiamo utilizzato un dataset di immagini già supervisionato e suddiviso in train, validation e test.
